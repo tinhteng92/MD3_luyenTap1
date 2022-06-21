@@ -70,17 +70,18 @@ INSERT INTO Marks values
 (1, 3, 5),
 (3, 2, 4);
 
-SELECT student.*, classes.ClassName
-from student join classes
-on Student.studentID = Classes.ClassId;
-
+SELECT student.*, classes.*
+from student join classStudent 
+on Student.studentID = classstudent.studentId
+join classes
+on classStudent.classId = classes.classid ;
 
 SELECT * from subjects;
 
 SELECT AVG(Mark) as "Diem trung binh"
 from Marks;
 
-select  subjects.subjectid, subjects.Name, Marks.mark
-From mark join subjects on Marks.subjectid = Subjects.subjectid
- where marks = (select max(mark) from marks);
+select  subjects.subjectid, subjects.subjectName, Marks.mark
+From marks join subjects on Marks.subjectid = Subjects.subjectid
+ where Marks.mark >= all (select mark from marks);
 
